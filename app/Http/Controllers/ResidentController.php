@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Helpers\ResponseFormatter;
 use App\Models\resident;
 use Illuminate\Http\Request;
-use DataTables;
+use Yajra\DataTables\Facades\DataTables;
 use Illuminate\Support\Facades\Validator;
 
 class ResidentController extends Controller
@@ -26,19 +26,19 @@ class ResidentController extends Controller
 
     public function store(Request $request)
     {
-        $validasi = Validator::make($request->all(),[
+        $validasi = Validator::make($request->all(), [
             'nama' => 'required|string',
             'nomor' => 'required|max:13',
             'alamat' => 'required'
         ]);
 
-        if($validasi->fails()){
-            return response()->json(['status' => 400,'msg' => $validasi->errors()->first()]);
+        if ($validasi->fails()) {
+            return response()->json(['status' => 400, 'msg' => $validasi->errors()->first()]);
         }
 
-        if($request->id){
-            $data = resident::where('id',$request->id)->first();
-            resident::where('id',$request->id)->update([
+        if ($request->id) {
+            $data = resident::where('id', $request->id)->first();
+            resident::where('id', $request->id)->update([
                 'name' => $request->nama ?? $data->name,
                 'address' => $request->alamat ?? $data->address,
                 'phone_number' => $request->nomor ?? $data->phone_number
@@ -56,8 +56,9 @@ class ResidentController extends Controller
         return response()->json(['status' => 200, 'msg' => 'Data Berhasil Di Simpan !']);
     }
 
-    public function edit($id){
-        $data = resident::where('id',$id)->first();
+    public function edit($id)
+    {
+        $data = resident::where('id', $id)->first();
         return response()->json(['status' => 200, 'data' => $data]);
     }
 
@@ -69,8 +70,8 @@ class ResidentController extends Controller
 
     public function delete(Request $request)
     {
-        resident::where('id',$request->id)->delete();
-        return response()->json(['status' => 200 ,'msg' => 'Data Berhasil Di Delete !']);
+        resident::where('id', $request->id)->delete();
+        return response()->json(['status' => 200, 'msg' => 'Data Berhasil Di Delete !']);
     }
 
 
