@@ -28,6 +28,7 @@
                                                 <th>Alamat</th>
                                                 <th>Nama Resident</th>
                                                 <th>Alamat Resident</th>
+                                                <th>status</th>
                                             </tr>
                                         </thead>
                                         <tbody></tbody>
@@ -114,7 +115,12 @@
                         let reff = data.resident.address || '-';
                         return reff;
                     }
-                }, ]
+                }, {
+                    data: function(data) {
+                        let reff = data.status || '-';
+                        return reff;
+                    }
+                },]
             });
 
             $('#btn-fillter').on('click', function() {

@@ -111,7 +111,7 @@ class VisitorController extends Controller
 
     public function ajaxData(Request $request)
     {
-        $data = Visitor::where('Status','ACTIVE')->with(['resident']);
+        $data = Visitor::query()->with('resident');
 
         if ($request->has('date') && !empty($request->date)) {
             $dates = explode(' - ', $request->date);
